@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="依赖注入, Yo Vinchen">
-    <meta name="description" content="四、依赖注入依赖注入（Dependency Injection）建成DI，与控制反转（IoC）的含义相同
-依赖注入的作用就是在使用Spring 框架创建对象时，动态地将其所依赖的对象注入Bean组件中，其实现方式通常有两种，一种是属性set">
+    <meta name="keywords" content="第二章：Spring中Bean, Yo Vinchen">
+    <meta name="description" content="第二章：Spring中的Bean1、Bean的配置如果把Spring看做一个大型工厂，则Spring容器中的Bean就是该工厂的产品。要想使用这个工厂生产和管理Bean，就需要在配置文件中告诉它需要哪些Bean，以及需要使用何种方式将这些B">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +19,7 @@
 
     
 
-    <title>依赖注入 | Yo Vinchen</title>
+    <title>第二章：Spring中Bean | Yo Vinchen</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -452,12 +451,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">依赖注入</h1>
+                    <h1 class="description center-align post-title">第二章：Spring中Bean</h1>
                 </div>
             </div>
         </div>
@@ -589,7 +588,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-04-30
+                    2022-05-01
                 </div>
                 
 
@@ -610,101 +609,129 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="四、依赖注入"><a href="#四、依赖注入" class="headerlink" title="四、依赖注入"></a>四、依赖注入</h2><p>依赖注入（Dependency Injection）建成DI，与控制反转（IoC）的含义相同</p>
-<p>依赖注入的作用就是在使用Spring 框架创建对象时，动态地将其所依赖的对象注入Bean组件中，其实现方式通常有两种，一种是属性setter方法注入，另一种是构造方法注入，具体介绍如下:</p>
-<p>属性 setter方法注入：指Spring容器使用setter方法注入被依赖的实例。通过调用无参构造器或无参静态工厂方法实例化 Bean后，调用该Bean的setter 方法，即可实现基于 setter方法的依赖注入。</p>
-<p>构造方法注入：指Spring容器使用构造方法注入被依赖的实例。基于构造方法的依赖注入通过调用带参数的构造方法来实现，每个参数代表着一个依赖。</p>
-<p>在com.gzh的包下创建UserService接口并创建一个say方法，代码如下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserService</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>在com.gzh的包下创建UserServiceImpl实现类，代码如下：</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserService</span><span class="token punctuation">{</span>
-
-    <span class="token comment" spellcheck="true">//声明UserDao的属性</span>
-    <span class="token keyword">private</span> UserDao userDao<span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">//添加UserDao属性的setter方法，用于实现依赖注入</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setUserDao</span><span class="token punctuation">(</span>UserDao userDao<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>userDao <span class="token operator">=</span> userDao<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">//实现接口中的方法</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//调用userDao中的say()方法，并执行输出语句</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>userDao<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"UserService say Hellow World!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>在applicationContext.xml里面创建一个id为userService的实例</p>
-<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span>bean id<span class="token operator">=</span><span class="token string">"userService"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"com.gzh.UserServiceImpl"</span><span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>    将id为userDao的Bean实例注入到userService的实例中<span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>property name<span class="token operator">=</span><span class="token string">"userDao"</span> ref<span class="token operator">=</span><span class="token string">"userDao"</span><span class="token operator">/</span><span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>bean<span class="token operator">></span>
-</code></pre>
-<p>在com.gzh下创建TestDI实例</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TsetDI</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//1.初始化Spring容器，加载配置文件</span>
-        ApplicationContext applicationContext <span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"applicationContext.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token comment" spellcheck="true">//2.通过容器获取UserService实例</span>
-        UserService userService <span class="token operator">=</span><span class="token punctuation">(</span>UserService<span class="token punctuation">)</span> applicationContext<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"userService"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token comment" spellcheck="true">//3.调用实例中的say()方法</span>
-        userService<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="https://yovinchen-1308133012.cos.ap-beijing.myqcloud.com/image-20220303222001817.png" alt="image-20220303222001817"></p>
-<h2 id="1-IOC（控制反转）：类对象的创建由程序员转给了Spring框架"><a href="#1-IOC（控制反转）：类对象的创建由程序员转给了Spring框架" class="headerlink" title="1.IOC（控制反转）：类对象的创建由程序员转给了Spring框架"></a>1.IOC（控制反转）：类对象的创建由程序员转给了Spring框架</h2><p>Spring框架创建类对象的步骤：</p>
-<p>（1）导包5个</p>
-<p>commons_logging</p>
-<p>spring-context</p>
-<p>spring-beans</p>
-<p>spring-core</p>
-<p>spring-expression</p>
+                <h1 id="第二章：Spring中的Bean"><a href="#第二章：Spring中的Bean" class="headerlink" title="第二章：Spring中的Bean"></a>第二章：Spring中的Bean</h1><h2 id="1、Bean的配置"><a href="#1、Bean的配置" class="headerlink" title="1、Bean的配置"></a>1、Bean的配置</h2><p>如果把Spring看做一个大型工厂，则Spring容器中的Bean就是该工厂的产品。要想使用这个工厂生产和管理Bean，就需要在配置文件中告诉它需要哪些Bean，以及需要使用何种方式将这些Bean装配到一起。</p>
+<p><strong>test：Bean的本质就是Java中的类，而Spring中的Bean其实就是对实体类的引用，来生产Java类对象，从而实现生产和管理Bean .</strong></p>
+<p>XML配置文件的根元素是<beans>，<beans>中包含了多个<bean>子元素，每个<bean>子元素定义了一个Bean，并描述了该Bean如何被装配到Spring容器中</bean></bean></beans></beans></p>
+<p>关于<beans>元素的常用属性如下表所示：</beans></p>
+<table>
+<thead>
+<tr>
+<th align="center">属性或元素名称</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">id</td>
+<td align="center">是一个Bean的唯一标识符,Spring容器对Bean的配置、管理都通过该属性来完成。</td>
+</tr>
+<tr>
+<td align="center">name</td>
+<td align="center">Spring 容器同样可以通过此属性对容器中的 Bean 进行配置和管理，name 属性中可以为 Bean指定多个名称，每个名称之间用逗号或分号隔开。</td>
+</tr>
+<tr>
+<td align="center">class</td>
+<td align="center">该属性指定了 Bean 的具体实现类，它必须是一个完整的类名，使用类的全限定名。</td>
+</tr>
+<tr>
+<td align="center">scopes</td>
+<td align="center">用来设定 Bean 实例的作用域，其属性值有：singleton（单例）、prototype（原型）、request、session、global Session、application和 websocket。其默认值为 singleton。</td>
+</tr>
+</tbody></table>
+<h4 id="作用域的种类"><a href="#作用域的种类" class="headerlink" title="作用域的种类"></a>作用域的种类</h4><table>
+<thead>
+<tr>
+<th align="center">作用域名称</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">singleton（单例）</td>
+<td align="center">使用singleton定义的Bean在Spring容器中将只有一个穿例，也就是说，无论有多少个Bean 引用它，始终将指向同一个对象。这也是Spring 容器默认的作用域。</td>
+</tr>
+<tr>
+<td align="center">prototype（原型）</td>
+<td align="center">每次通过Spring容器获取的prototype定义的Bean时，容器都将创建一个新的 Bean 实例。</td>
+</tr>
+</tbody></table>
+<p><strong>test：如果在Bean中未指定id和name，则Spring会将class值当作id使用。</strong></p>
+<h2 id="2、构造器实例化"><a href="#2、构造器实例化" class="headerlink" title="2、构造器实例化"></a>2、构造器实例化</h2><p>首先创建一个Maven项目然后导包</p>
 <pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span>dependency<span class="token operator">></span>
       <span class="token operator">&lt;</span>groupId<span class="token operator">></span>org<span class="token punctuation">.</span>springframework<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
       <span class="token operator">&lt;</span>artifactId<span class="token operator">></span>spring<span class="token operator">-</span>context<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
       <span class="token operator">&lt;</span>version<span class="token operator">></span><span class="token number">4.3</span><span class="token punctuation">.</span><span class="token number">6</span><span class="token punctuation">.</span>RELEASE<span class="token operator">&lt;</span><span class="token operator">/</span>version<span class="token operator">></span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
 </code></pre>
-<p>（2）resources文件夹下创建applicationContext.xml</p>
-<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">?</span>xml version<span class="token operator">=</span><span class="token string">"1.0"</span> encoding<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">?</span><span class="token operator">></span>
-<span class="token operator">&lt;</span>beans xmlns<span class="token operator">=</span><span class="token string">"http://www.springframework.org/schema/beans"</span>
-       xmlns<span class="token operator">:</span>xsi<span class="token operator">=</span><span class="token string">"http://www.w3.org/2001/XMLSchema-instance"</span>
-       xsi<span class="token operator">:</span>schemaLocation<span class="token operator">=</span><span class="token string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span>bean id<span class="token operator">=</span><span class="token string">"userDao"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"com.gzh.UserDaoImpl"</span><span class="token operator">/</span><span class="token operator">></span>
+<p>然后在 main 文件下面创建Java源码包，并在包下创建名为 com.ssm.instance.constructor 包 并在其下创建 Bean1 类</p>
+<p>然后在 main 文件创建名为 resources 的 Resources Root （源根）并配置 Bean1 的 id 和 class </p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span>bean id<span class="token operator">=</span><span class="token string">"bean1"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"com.ssm.instance.constructor.Bean1"</span><span class="token operator">/</span><span class="token operator">></span>
 </code></pre>
-<p>（3）获取Spring框架创建的类对象</p>
-<pre class=" language-java"><code class="language-java"> <span class="token comment" spellcheck="true">//使用Spring框架创建对象调用方法</span>
-ApplicationContext applicationContext <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span><span class="token string">"applicationContext.xml"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-UserDao userDao <span class="token operator">=</span> <span class="token punctuation">(</span>UserDao<span class="token punctuation">)</span> applicationContext<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"userDao"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-userDao<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<h2 id="2-DI：依赖注入"><a href="#2-DI：依赖注入" class="headerlink" title="2.DI：依赖注入"></a>2.DI：依赖注入</h2><p>D：依赖（动词）</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">B</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token keyword">class</span> <span class="token class-name">A</span><span class="token punctuation">{</span>
-    B b<span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        b<span class="token punctuation">.</span><span class="token function">b</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p>然后在 com.ssm.instance.constructor 包下创建 InstanceTest1 类</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//定义配置文件路径</span>
+        String xmlPath <span class="token operator">=</span> <span class="token string">"beans1.xml"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//ApplicationContext在加载配置文件时，对Bean进行实例化</span>
+        ApplicationContext applicationContext <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span>xmlPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Bean1 bean <span class="token operator">=</span> <span class="token punctuation">(</span>Bean1<span class="token punctuation">)</span> applicationContext<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"bean1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>bean<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+</code></pre>
+<p>程序执行截图：</p>
+<p><img src="https://yovinchen-1308133012.cos.ap-beijing.myqcloud.com/image-20220309123304518.png" alt="image-20220309123304518"></p>
+<h2 id="3、静态工厂实例化"><a href="#3、静态工厂实例化" class="headerlink" title="3、静态工厂实例化"></a>3、静态工厂实例化</h2><p>首先在 Java 包下创建一个名为 com.ssm.instance.static_factory 包，然后在其包下创建一个 名为 Bean2 的类以及一个叫做 MyBean2Factory 的类 并在这个类中创建一个静态方法来实现返回 Bean2 实例 </p>
+<pre class=" language-java"><code class="language-java"> <span class="token comment" spellcheck="true">//使用自己的工厂创建Bean实例</span>
+     <span class="token keyword">public</span> <span class="token keyword">static</span> Bean2 <span class="token function">createBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Bean2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>然后在  resources 下创建 beans2.xml 并输入以下代码：</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span>bean id <span class="token operator">=</span><span class="token string">"bean2"</span>
+          <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"com.ssm.instance.static_factory.MyBean2Factory"</span>
+          factory<span class="token operator">-</span>method<span class="token operator">=</span><span class="token string">"createBean"</span><span class="token operator">/</span><span class="token operator">></span>
+</code></pre>
+<p>然后在 static_factory 下创建一个名为 InstanceTest2 的测试类，</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        String xmlPath <span class="token operator">=</span> <span class="token string">"beans2.xml"</span><span class="token punctuation">;</span>
+
+        ApplicationContext applicationContext <span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span>xmlPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>applicationContext<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"bean2"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>程序执行截图：</p>
+<p><img src="https://yovinchen-1308133012.cos.ap-beijing.myqcloud.com/image-20220309142136727.png" alt="image-20220309142136727"></p>
+<h2 id="4、实例工厂实例化"><a href="#4、实例工厂实例化" class="headerlink" title="4、实例工厂实例化"></a>4、实例工厂实例化</h2><p>首先在 Java 文件下面创建一个名为 com.ssm.instance.factory 的包，并在其下面创建一个名为 Bean3 的类和一个名为 MyBean3Factory 的类，创建 Bean3 的实例方法，输入以下代码：</p>
+<pre class=" language-java"><code class="language-java"> <span class="token keyword">public</span> <span class="token function">MyBean3Factory</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Bean3 工厂实例化中"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//创建 Bean3 实例的方法</span>
+    <span class="token keyword">public</span> Bean3 <span class="token function">createBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Bean3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>在 resources  下创建 beans3.xml 并输入以下代码：</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>    配置工厂    <span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>bean id<span class="token operator">=</span><span class="token string">"myBean3Factory"</span>
+          <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"com.ssm.instance.factory.MyBean3Factory"</span><span class="token operator">/</span><span class="token operator">></span>
+
+<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>        使用 factory<span class="token operator">-</span>bean 属性指向配置的实例工厂，
+            使用 factory<span class="token operator">-</span>method 的属性确定使用工厂中的哪个方法   <span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>bean id<span class="token operator">=</span><span class="token string">"bean3"</span>
+          factory<span class="token operator">-</span>bean<span class="token operator">=</span><span class="token string">"myBean3Factory"</span>
+          factory<span class="token operator">-</span>method<span class="token operator">=</span><span class="token string">"createBean"</span> <span class="token operator">/</span><span class="token operator">></span>
+</code></pre>
+<p>然后在 factory 下创建一个名为 InstanceTest3 的测试类，并输入以下代码：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//指定配置文件路径</span>
+    String xmlPath <span class="token operator">=</span> <span class="token string">"beans3.xml"</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//ApplicationContext在加载配置文件时，对Bean进行实例化</span>
+    ApplicationContext applicationContext <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathXmlApplicationContext</span><span class="token punctuation">(</span>xmlPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>applicationContext<span class="token punctuation">.</span><span class="token function">getBean</span><span class="token punctuation">(</span><span class="token string">"bean3"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//类的对象作为A类的成员变量，就是A依赖B。</span>
 </code></pre>
-<p>I：注入：就是给成员变量赋值</p>
-<p>Spring 框架如何实现依赖注入？</p>
-<p>直接在配置文件中写如下代码：</p>
-<pre class=" language-java"><code class="language-java"><span class="token operator">&lt;</span>bean id<span class="token operator">=</span><span class="token string">"userService"</span> <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"com.gzh.UserServiceImpl"</span><span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>    将id为userDao的Bean实例注入到userService的实例中<span class="token operator">--</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>property name<span class="token operator">=</span><span class="token string">"userDao"</span> ref<span class="token operator">=</span><span class="token string">"userDao"</span><span class="token operator">/</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>bean<span class="token operator">></span>
-    <span class="token comment" spellcheck="true">//name属性值是成员变量，ref属性值是id属性的值</span>
-</code></pre>
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+<p>程序执行截图：</p>
+<p><img src="https://yovinchen-1308133012.cos.ap-beijing.myqcloud.com/image-20220309144326438.png" alt="image-20220309144326438"></p>
+
                 
             </div>
             <hr/>
@@ -730,7 +757,7 @@ userDao<span class="token punctuation">.</span><span class="token function">say<
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yovinchen.github.io/2022/043031381.html">http://yovinchen.github.io/2022/043031381.html</a>
+                    <a href="http://yovinchen.github.io/2022/050137499.html">http://yovinchen.github.io/2022/050137499.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -943,9 +970,10 @@ userDao<span class="token punctuation">.</span><span class="token function">say<
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/050137499.html">
                     <div class="card-image">
@@ -963,9 +991,9 @@ userDao<span class="token punctuation">.</span><span class="token function">say<
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -974,6 +1002,7 @@ userDao<span class="token punctuation">.</span><span class="token function">say<
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -992,13 +1021,13 @@ userDao<span class="token punctuation">.</span><span class="token function">say<
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/042920479.html">
+                <a href="/2022/043031381.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Spring的基本应用">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="依赖注入">
                         
-                        <span class="card-title">Spring的基本应用</span>
+                        <span class="card-title">依赖注入</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1009,7 +1038,7 @@ userDao<span class="token punctuation">.</span><span class="token function">say<
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-30
                             </span>
                         <span class="publish-author">
                             
